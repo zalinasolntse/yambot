@@ -121,8 +121,8 @@ def art_thread(art_q, menu):
 
 
 def build_menu():
-    button_help = {'text': 'Помощь', 'callback_data': {'cmd': '/help'}}
-    button_hello = {'text': 'Я всё вижу', 'callback_data': {'cmd': '/hello'}}
+    button_help = {'text': 'Главное меню', 'callback_data': {'cmd': '/help'}}
+    button_hello = {'text': 'Заявки на формы', 'callback_data': {'cmd': '/hello'}}
     button_art = {'text': 'Генерация изображения', 'callback_data': {'cmd': '/art'}}
     button_translate = {'text': 'Перевод', 'callback_data': {'cmd': '/translate'}}
     button_pass = {'text': 'Пропуск', 'callback_data': {'cmd': '/pass'}}
