@@ -115,7 +115,7 @@ def art_thread(art_q, menu):
 
             else:
                 print(art_q)
-                yb.send_message("Генерируется...", art_q[art_request])
+                yb.send_message("Генерируется..", art_q[art_request])
         # print("Sleeping")
         sleep(10)
 
