@@ -32,7 +32,8 @@ def translate_button(update):                                                   
 
 but_ithelp = {'text': 'ITHelp', 'callback_data': {'cmd': '/ithelp'}}
 but_car= {'text': 'Расписание транспорта', 'callback_data': {'cmd': '/car'}}
-but_help = [but_ithelp, but_car]
+but_back= {'text': 'Назад', 'callback_data': {'cmd': '/back'}}
+but_help = [but_ithelp, but_car,but_back]
 ygpt_button={'text': 'Yandex GPT', 'callback_data': {'cmd': '/YandexGPT'}}
 
 @yb.add_handler(button='/info')
@@ -42,6 +43,11 @@ def info_button(update):
 @yb.add_handler(button='/ithelp')
 def but_ithelp(update):  
     yb.send_message(f'Напишите сотруднику поддержки в ЯМессенджер или на почту: ithelp@sollers-auto.com',update)
+
+@yb.add_handler(button='/back')
+def but_back(update):  
+    yb.send_message(f"Назад", update)
+    send_menu(update, main_menu)
 
 @yb.add_handler(button='/pass')
 def pass_button(update):                                                                 #Обработчик кнопки пропуска. Запрашивает имя и фамилию для заказа пропуска.
@@ -62,9 +68,12 @@ def pass_no(update):                                                            
     yb.send_message(f'"Заказ пропуска отменен', update)
     send_menu(update, main_menu)                                                         # Возвращаем в основное меню
 
+art_button={'text': 'Yandex ART', 'callback_data': {'cmd': '/art'}}
+gpt_but=[art_button, but_back]
+
 @yb.add_handler(button='/YandexGPT')
 def ygpt_button(update):  
-    yb.send_inline_keyboard(text='Что может Yandex GPT', buttons = art_button, update = update)
+    yb.send_inline_keyboard(text='Что может Yandex GPT:', buttons = gpt_but, update = update)
 
 @yb.add_handler(button='/art')
 def art_button(update):                                                                  #Обработчик кнопки генерации изображения. Запрашивает текст для генерации.
@@ -136,7 +145,7 @@ def art_thread(art_q, menu):                                                    
             # Если условие в предыдущем блоке не выполнено, выполняем этот код
             else:
                 print(art_q)                                                              # Выводим содержимое очереди art_q в консоль для отладки
-                                                                                          # Отправляем сообщение пользователю о том, что идет процесс генерации
+              # Отправляем сообщение пользователю о том, что идет процесс генерации
                 yb.send_message("Генерируется...", art_q[art_request])
         # print("Sleeping")
         sleep(10)                                                                         # Приостанавливаем выполнение на 10 секунд
@@ -146,12 +155,12 @@ def build_menu(): # Создаем кнопки для меню с тексто�
     button_help = {'text': 'Главное меню', 'callback_data': {'cmd': '/help'}}
     button_hello = {'text': 'Заявки на формы', 'callback_data': {'cmd': '/hello'}}
     button_info = {'text': 'Полезная информация', 'callback_data': {'cmd': '/info'}}
-    ygpt_button = {'text': '/YandexGPT', 'callback_data': {'cmd': '/YandexGPT'}}
+    button_gpt = {'text': 'YandexGPT', 'callback_data': {'cmd': '/YandexGPT'}}
     #button_translate = {'text': 'Перевод', 'callback_data': {'cmd': '/translate'}}
     button_pass = {'text': 'Оформление пропусков', 'callback_data': {'cmd': '/pass'}}
 
     # Возвращаем список кнопок, который будет использоваться в меню
-    return [button_help, button_hello, ygpt_button, button_info, button_pass]
+    return [button_help, button_hello, button_gpt, button_info, button_pass]
 
 def send_menu(update, menu):  # Отправляем пользователю инлайн-кнопки с текстом и кнопками из меню
     yb.send_inline_keyboard(text='Доступные команды:', buttons=menu, update=update)
