@@ -34,9 +34,14 @@ but_ithelp = {'text': 'ITHelp', 'callback_data': {'cmd': '/ithelp'}}
 but_car= {'text': 'Расписание транспорта', 'callback_data': {'cmd': '/car'}}
 but_help = [but_ithelp, but_car]
 
+
 @yb.add_handler(button='/info')
 def info_button(update):  
     yb.send_inline_keyboard(text='Полезная информация:', buttons = but_help, update = update)                                                          #Обработчик кнопки перевода. Запрашивает текст для перевода.
+
+@yb.add_handler(button='/ithelp')
+def but_ithelp(update):  
+    yb.send_message(f'Напишите сотруднику поддержки в ЯМессенджер или на почту: ithelp@sollers-auto.com',update)
 
 @yb.add_handler(button='/pass')
 def pass_button(update):                                                                 #Обработчик кнопки пропуска. Запрашивает имя и фамилию для заказа пропуска.
@@ -69,7 +74,7 @@ def art_yes(update):                                                            
     response = send_art_request(update.callback_data['text'])                            # Отправляем запрос на генерацию изображения
     print(f"Art response: {response}")
     try:
-        yb.send_message(f"Отправлен запрос на генерацию изображения. Id запроса: {response['id']}", update)
+        yb.send_message(f"Запрос на генерацию изображения отправлен.", update)
         art_queue.update({f"{response['id']}": update})                                  # Сохраняем запрос в очередь
     except KeyError:
         yb.send_message(f"Ошибка: {response['error']}", update)                          # Обработка ошибки
@@ -139,11 +144,11 @@ def build_menu(): # Создаем кнопки для меню с тексто�
     button_hello = {'text': 'Заявки на формы', 'callback_data': {'cmd': '/hello'}}
     button_info = {'text': 'Полезная информация', 'callback_data': {'cmd': '/info'}}
     button_art = {'text': 'Генерация изображения', 'callback_data': {'cmd': '/art'}}
-    button_translate = {'text': 'Перевод', 'callback_data': {'cmd': '/translate'}}
+    #button_translate = {'text': 'Перевод', 'callback_data': {'cmd': '/translate'}}
     button_pass = {'text': 'Оформление пропусков', 'callback_data': {'cmd': '/pass'}}
 
     # Возвращаем список кнопок, который будет использоваться в меню
-    return [button_help, button_hello, button_art, button_info, button_translate, button_pass]
+    return [button_help, button_hello, button_art, button_info, button_pass]
 
 def send_menu(update, menu):  # Отправляем пользователю инлайн-кнопки с текстом и кнопками из меню
     yb.send_inline_keyboard(text='Доступные команды:', buttons=menu, update=update)
