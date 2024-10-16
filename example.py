@@ -37,7 +37,6 @@ but_help = [but_ithelp, but_car]
 @yb.add_handler(button='/info')
 def info_button(update):  
     yb.send_inline_keyboard(text='Полезная информация:', buttons = but_help, update = update)                                                          #Обработчик кнопки перевода. Запрашивает текст для перевода.
-    yb.send_message(f'Полезная информация', update)
 
 @yb.add_handler(button='/pass')
 def pass_button(update):                                                                 #Обработчик кнопки пропуска. Запрашивает имя и фамилию для заказа пропуска.
