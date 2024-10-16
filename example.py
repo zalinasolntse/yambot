@@ -33,7 +33,7 @@ def translate_button(update):                                                   
 but_ithelp = {'text': 'ITHelp', 'callback_data': {'cmd': '/ithelp'}}
 but_car= {'text': 'Расписание транспорта', 'callback_data': {'cmd': '/car'}}
 but_help = [but_ithelp, but_car]
-
+ygpt_button={'text': 'Yandex GPT', 'callback_data': {'cmd': '/YandexGPT'}}
 
 @yb.add_handler(button='/info')
 def info_button(update):  
@@ -62,6 +62,9 @@ def pass_no(update):                                                            
     yb.send_message(f'"Заказ пропуска отменен', update)
     send_menu(update, main_menu)                                                         # Возвращаем в основное меню
 
+@yb.add_handler(button='/YandexGPT')
+def ygpt_button(update):  
+    yb.send_inline_keyboard(text='Что может Yandex GPT', buttons = art_button, update = update)
 
 @yb.add_handler(button='/art')
 def art_button(update):                                                                  #Обработчик кнопки генерации изображения. Запрашивает текст для генерации.
@@ -143,12 +146,12 @@ def build_menu(): # Создаем кнопки для меню с тексто�
     button_help = {'text': 'Главное меню', 'callback_data': {'cmd': '/help'}}
     button_hello = {'text': 'Заявки на формы', 'callback_data': {'cmd': '/hello'}}
     button_info = {'text': 'Полезная информация', 'callback_data': {'cmd': '/info'}}
-    button_art = {'text': 'Генерация изображения', 'callback_data': {'cmd': '/art'}}
+    ygpt_button = {'text': '/YandexGPT', 'callback_data': {'cmd': '/YandexGPT'}}
     #button_translate = {'text': 'Перевод', 'callback_data': {'cmd': '/translate'}}
     button_pass = {'text': 'Оформление пропусков', 'callback_data': {'cmd': '/pass'}}
 
     # Возвращаем список кнопок, который будет использоваться в меню
-    return [button_help, button_hello, button_art, button_info, button_pass]
+    return [button_help, button_hello, ygpt_button, button_info, button_pass]
 
 def send_menu(update, menu):  # Отправляем пользователю инлайн-кнопки с текстом и кнопками из меню
     yb.send_inline_keyboard(text='Доступные команды:', buttons=menu, update=update)
