@@ -41,7 +41,8 @@ but_help = [but_ithelp, but_car,but_main]
 but_work= {'text': 'Командировка', 'callback_data': {'cmd': '/work'}}
 but_ticket ={'text': 'Пропуск', 'callback_data': {'cmd': '/ticket'}}
 but_holiday={'text': 'Отпуск', 'callback_data': {'cmd': '/holiday'}}
-but_zayavki=[but_work,but_ticket,but_holiday,but_main]
+button_pass = {'text': 'Оформление пропусков', 'callback_data': {'cmd': '/pass'}}
+but_zayavki=[but_work,but_ticket,but_holiday,button_pass,but_main]
 
 
 #ФУНКЦИЯ КНОПОК
@@ -84,19 +85,10 @@ def but_holiday(update):
     yb.send_message(f'Здесь скоро появится инструкция как оформить отпуск',update)   
     send_menu(update, but_zayavki)
 
-#кнопка назад
-@yb.add_handler(button='/back')
-def but_back(update):  
-    send_menu(update, main_menu)
-
-
-
 @yb.add_handler(button='/pass')
 def pass_button(update):                                                                 #Обработчик кнопки пропуска. Запрашивает имя и фамилию для заказа пропуска.
     yb.send_message(f'Введите имя и фамилию для заказа пропуска:', update)
     pass_requests.update({f'{update.from_m.from_id}': update})                           # Сохраняем запрос
-
-
 
 @yb.add_handler(button='/pass_yes')
 def pass_yes(update):
@@ -104,11 +96,16 @@ def pass_yes(update):
     yb.send_message(f"Заявка на пропуск оформлена: https://tracker.yandex.ru/{res['key']}", update)
     send_menu(update, main_menu)                                                         # Возвращаем в основное меню
 
-
 @yb.add_handler(button='/pass_no')
 def pass_no(update):                                                                     #Обработчик отмены заказа пропуска.
     yb.send_message(f'"Заказ пропуска отменен', update)
-    send_menu(update, main_menu)                                                         # Возвращаем в основное меню
+    send_menu(update, main_menu)      
+
+
+#кнопка назад
+@yb.add_handler(button='/back')
+def but_back(update):  
+    send_menu(update, main_menu)
 
 
 @yb.add_handler(button='/art')
@@ -127,7 +124,6 @@ def art_yes(update):                                                            
     except KeyError:
         yb.send_message(f"Ошибка: {response['error']}", update)                          # Обработка ошибки
         send_menu(update, main_menu)                                                     # Возвращаем в основное меню
-
 
 @yb.add_handler(button='/art_no') 
 def art_no(update):                                                                      # Обработчик отмены генерации изображения
@@ -193,10 +189,10 @@ def build_menu(): # Создаем кнопки для меню с тексто�
     button_info = {'text': 'Полезная информация 📕', 'callback_data': {'cmd': '/info'}}
     button_art = {'text': 'Генерация изображения', 'callback_data': {'cmd': '/art'}}
     #button_translate = {'text': 'Перевод', 'callback_data': {'cmd': '/translate'}}
-    button_pass = {'text': 'Оформление пропусков', 'callback_data': {'cmd': '/pass'}}
+    
 
     # Возвращаем список кнопок, который будет использоваться в меню
-    return [button_help, button_test, button_art, button_info, button_pass]
+    return [button_help, button_test, button_art, button_info]
 
 def send_menu(update, menu):  # Отправляем пользователю инлайн-кнопки с текстом и кнопками из меню
     yb.send_inline_keyboard(text='Доступные команды:', buttons=menu, update=update)
