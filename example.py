@@ -34,7 +34,6 @@ def show_handlers(update):                                                      
 #Кнопки "полезная информация"
 but_ithelp = {'text': 'IT Help', 'callback_data': {'cmd': '/ithelp'}}
 but_car= {'text': 'Расписание транспорта', 'callback_data': {'cmd': '/car'}}
-but_back1={'text': 'Назад', 'callback_data': {'cmd': '/back1'}}
 but_main={'text': 'На главную', 'callback_data': {'cmd': '/main'}}
 but_help = [but_ithelp, but_car,but_main]
 
@@ -42,7 +41,6 @@ but_help = [but_ithelp, but_car,but_main]
 but_work= {'text': 'Командировка', 'callback_data': {'cmd': '/work'}}
 but_ticket ={'text': 'Пропуск', 'callback_data': {'cmd': '/ticket'}}
 but_holiday={'text': 'Отпуск', 'callback_data': {'cmd': '/holiday'}}
-but_back2={'text': 'Назад', 'callback_data': {'cmd': '/back2'}}
 but_zayavki=[but_work,but_ticket,but_holiday,but_main]
 
 
@@ -62,10 +60,6 @@ def but_ithelp(update):
     yb.send_message(f'Вы можете присоединиться к нашей группе в Телеграм-канал по ссылке: https://t.me/+t7OWn8saTu0wZTdi для получения оперативной информации.',update)
     send_menu(update, info_button)
 
-@yb.add_handler(button='/back1')
-def but_back1(update):  
-    send_menu(update, info_button)
-
 @yb.add_handler(button='main')
 def but_main(update):  
     send_menu(update, main_menu)
@@ -78,24 +72,25 @@ def test_button(update):
 @yb.add_handler(button='/work')
 def but_work(update):  
     yb.send_message(f'Здесь скоро появится инструкция как оформить командировку',update)
+    send_menu(update, test_button)
 
 @yb.add_handler(button='/ticket')
 def but_ticket(update):  
     yb.send_message(f'Здесь скоро появится инструкция как оформить пропуск',update)
+    send_menu(update, test_button)
+
 
 @yb.add_handler(button='/holiday')
 def but_holiday(update):  
     yb.send_message(f'Здесь скоро появится инструкция как оформить отпуск',update)   
-
-@yb.add_handler(button='/back2')
-def but_back2(update):  
-    send_menu(update, test_button) 
-
+    send_menu(update, test_button)
 
 #кнопка назад
 @yb.add_handler(button='/back')
 def but_back(update):  
     send_menu(update, main_menu)
+
+
 
 @yb.add_handler(button='/pass')
 def pass_button(update):                                                                 #Обработчик кнопки пропуска. Запрашивает имя и фамилию для заказа пропуска.
