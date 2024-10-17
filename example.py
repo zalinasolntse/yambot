@@ -39,10 +39,10 @@ but_help = [but_ithelp, but_car,but_main]
 
 #Кнопки "Оформить пропуск"
 but_work= {'text': 'Командировка', 'callback_data': {'cmd': '/work'}}
-but_ticket ={'text': 'Пропуск', 'callback_data': {'cmd': '/ticket'}}
+#but_ticket ={'text': 'Пропуск', 'callback_data': {'cmd': '/ticket'}}
 but_holiday={'text': 'Отпуск', 'callback_data': {'cmd': '/holiday'}}
 button_pass = {'text': 'Оформление пропусков', 'callback_data': {'cmd': '/pass'}}
-but_zayavki=[but_work,but_ticket,but_holiday,button_pass,but_main]
+but_zayavki=[but_work,but_holiday,button_pass,but_main]
 
 #кнопки "YandexGPT"
 button_art = {'text': 'Генерация изображения', 'callback_data': {'cmd': '/art'}}
@@ -79,10 +79,10 @@ def but_work(update):
     yb.send_message(f'Здесь скоро появится инструкция как оформить командировку',update)
     send_menu(update, but_zayavki)
 
-@yb.add_handler(button='/ticket')
-def but_ticket(update):  
-    yb.send_message(f'Здесь скоро появится инструкция как оформить пропуск',update)
-    send_menu(update, but_zayavki)
+#@yb.add_handler(button='/ticket')
+#def but_ticket(update):  
+    #yb.send_message(f'Здесь скоро появится инструкция как оформить пропуск',update)
+    #send_menu(update, but_zayavki)
 
 @yb.add_handler(button='/holiday')
 def but_holiday(update):  
