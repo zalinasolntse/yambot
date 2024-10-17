@@ -36,14 +36,14 @@ but_ithelp = {'text': 'IT Help', 'callback_data': {'cmd': '/ithelp'}}
 but_car= {'text': 'Расписание транспорта', 'callback_data': {'cmd': '/car'}}
 but_back1={'text': 'Назад', 'callback_data': {'cmd': '/back1'}}
 but_main={'text': 'На главную', 'callback_data': {'cmd': '/main'}}
-but_help = [but_ithelp, but_car, but_back1,but_main]
+but_help = [but_ithelp, but_car,but_main]
 
 #Кнопки "оформить пропуск"
 but_work= {'text': 'Командировка', 'callback_data': {'cmd': '/work'}}
 but_ticket ={'text': 'Пропуск', 'callback_data': {'cmd': '/ticket'}}
 but_holiday={'text': 'Отпуск', 'callback_data': {'cmd': '/holiday'}}
 but_back2={'text': 'Назад', 'callback_data': {'cmd': '/back2'}}
-but_zayavki=[but_work,but_ticket,but_holiday,but_back2,but_main]
+but_zayavki=[but_work,but_ticket,but_holiday,but_main]
 
 
 #ФУНКЦИЯ КНОПОК
@@ -55,13 +55,19 @@ def info_button(update):
 @yb.add_handler(button='/ithelp')
 def but_ithelp(update):  
     yb.send_message(f'Напишите сотруднику поддержки в  Я. Мессенджере  или на почту: ithelp@sollers-auto.com',update)
+    send_menu(update, info_button)
+
+@yb.add_handler(button='/raspisanie')
+def but_ithelp(update):  
+    yb.send_message(f'Вы можете присоединиться к нашей группе в Телеграм-канал по ссылке: https://t.me/+t7OWn8saTu0wZTdi для получения оперативной информации.',update)
+    send_menu(update, info_button)
 
 @yb.add_handler(button='/back1')
 def but_back1(update):  
     send_menu(update, info_button)
 
 @yb.add_handler(button='main')
-def but_back1(update):  
+def but_main(update):  
     send_menu(update, main_menu)
 
 #оформить заявку
