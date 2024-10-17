@@ -205,7 +205,7 @@ def build_menu(): # Создаем кнопки для меню с тексто�
     
 
     # Возвращаем список кнопок, который будет использоваться в меню
-    return [button_help, button_test, button_info]
+    return [button_help, button_test, button_info,button_gpt]
 
 def send_menu(update, menu):  # Отправляем пользователю инлайн-кнопки с текстом и кнопками из меню
     yb.send_inline_keyboard(text='Доступные команды:', buttons=menu, update=update)
