@@ -25,25 +25,46 @@ def show_handlers(update):                                                      
     yb.list_handlers()
 
 
-@yb.add_handler(button='/translate')
-def translate_button(update):                                                            #Обработчик кнопки перевода. Запрашивает текст для перевода.
-    yb.send_message(f'Введите текст для перевода:', update)
-    translate_requests.update({f'{update.from_m.from_id}': update})                      # Сохраняем запрос
+#@yb.add_handler(button='/translate')
+#def translate_button(update):                                                            #Обработчик кнопки перевода. Запрашивает текст для перевода.
+    #yb.send_message(f'Введите текст для перевода:', update)
+    #translate_requests.update({f'{update.from_m.from_id}': update})                      # Сохраняем запрос
 
+#КНОПКИ
+#Кнопки "полезная информация"
 but_ithelp = {'text': 'IT Help', 'callback_data': {'cmd': '/ithelp'}}
 but_car= {'text': 'Расписание транспорта', 'callback_data': {'cmd': '/car'}}
-but_back={'text': 'Назад', 'callback_data': {'cmd': '/back'}}
-but_help = [but_ithelp, but_car, but_back]
+but_back1={'text': 'Назад', 'callback_data': {'cmd': '/back1'}}
+but_main={'text': 'На главную', 'callback_data': {'cmd': '/main'}}
+but_help = [but_ithelp, but_car, but_back1,but_main]
 
+#Кнопки "оформить пропуск"
 but_work= {'text': 'Командировка', 'callback_data': {'cmd': '/work'}}
 but_ticket ={'text': 'Пропуск', 'callback_data': {'cmd': '/ticket'}}
 but_holiday={'text': 'Отпуск', 'callback_data': {'cmd': '/holiday'}}
-but_zayavki=[but_work,but_ticket,but_holiday,but_back]
+but_back2={'text': 'Назад', 'callback_data': {'cmd': '/back2'}}
+but_zayavki=[but_work,but_ticket,but_holiday,but_back2,but_main]
 
+
+#ФУНКЦИЯ КНОПОК
+#полезная информация
 @yb.add_handler(button='/info')
 def info_button(update):  
     yb.send_inline_keyboard(text='Полезная информация:', buttons = but_help, update = update)                                                          #Обработчик кнопки перевода. Запрашивает текст для перевода.
 
+@yb.add_handler(button='/ithelp')
+def but_ithelp(update):  
+    yb.send_message(f'Напишите сотруднику поддержки в  Я. Мессенджере  или на почту: ithelp@sollers-auto.com',update)
+
+@yb.add_handler(button='/back1')
+def but_back1(update):  
+    send_menu(update, info_button)
+
+@yb.add_handler(button='main')
+def but_back1(update):  
+    send_menu(update, main_menu)
+
+#оформить заявку
 @yb.add_handler(button='/test')
 def test_button(update):  
     yb.send_inline_keyboard(text='Оформить заявку:', buttons = but_zayavki, update = update)
@@ -58,15 +79,16 @@ def but_ticket(update):
 
 @yb.add_handler(button='/holiday')
 def but_holiday(update):  
-    yb.send_message(f'Здесь скоро появится инструкция как оформить отпуск',update)    
+    yb.send_message(f'Здесь скоро появится инструкция как оформить отпуск',update)   
 
-@yb.add_handler(button='/ithelp')
-def but_ithelp(update):  
-    yb.send_message(f'Напишите сотруднику поддержки в  Я. Мессенджере  или на почту: ithelp@sollers-auto.com',update)
+@yb.add_handler(button='/back2')
+def but_back2(update):  
+    send_menu(update, test_button) 
 
+
+#кнопка назад
 @yb.add_handler(button='/back')
 def but_back(update):  
-    yb.send_message(f"Назад", update)
     send_menu(update, main_menu)
 
 @yb.add_handler(button='/pass')
