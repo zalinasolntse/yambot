@@ -62,7 +62,7 @@ def but_ithelp(update):
 
 @yb.add_handler(button='/car')
 def but_car(update):  
-    yb.send_message(f'Вы можете присоединиться к нашей группе в Телеграм-канал по ссылке: https://t.me/+t7OWn8saTu0wZTdi для получения оперативной информации.',update)
+    yb.send_message(f'Вы можете присоединиться к нашей группе в [Телеграм-канал](https://t.me/+t7OWn8saTu0wZTdi) для получения оперативной информации.',update)
     send_menu(update, but_help)
 
 @yb.add_handler(button='main')
