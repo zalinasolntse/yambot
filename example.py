@@ -57,7 +57,7 @@ def info_button(update):
 
 @yb.add_handler(button='/ithelp')
 def but_ithelp(update):  
-    yb.send_message(f'Напишите сотруднику поддержки в [**Я. Мессенджере**](https://clck.ru/3DzNdf) или на почту: ithelp@sollers-auto.com',update)
+    yb.send_message(f'Напишите сотруднику поддержки в [**Я. Мессенджере**](https://yandex.ru/chat#/user/c8677c02-b3cd-9a51-5fcb-bc5dff265fb0) или на почту: ithelp@sollers-auto.com',update)
     send_menu(update, but_help)
 
 @yb.add_handler(button='/car')
