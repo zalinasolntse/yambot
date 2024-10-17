@@ -30,20 +30,39 @@ def translate_button(update):                                                   
     yb.send_message(f'Введите текст для перевода:', update)
     translate_requests.update({f'{update.from_m.from_id}': update})                      # Сохраняем запрос
 
-but_ithelp = {'text': 'ITHelp', 'callback_data': {'cmd': '/ithelp'}}
+but_ithelp = {'text': 'IT Help', 'callback_data': {'cmd': '/ithelp'}}
 but_car= {'text': 'Расписание транспорта', 'callback_data': {'cmd': '/car'}}
 but_back={'text': 'Назад', 'callback_data': {'cmd': '/back'}}
 but_help = [but_ithelp, but_car, but_back]
 
+but_work= {'text': 'Командировка', 'callback_data': {'cmd': '/work'}}
+but_ticket ={'text': 'Пропуск', 'callback_data': {'cmd': '/ticket'}}
+but_holiday={'text': 'Отпуск', 'callback_data': {'cmd': '/holiday'}}
+but_zayavki=[but_work,but_ticket,but_holiday,but_back]
 
 @yb.add_handler(button='/info')
 def info_button(update):  
     yb.send_inline_keyboard(text='Полезная информация:', buttons = but_help, update = update)                                                          #Обработчик кнопки перевода. Запрашивает текст для перевода.
 
+@yb.add_handler(button='/test')
+def test_button(update):  
+    yb.send_inline_keyboard(text='Оформить заявку:', buttons = but_zayavki, update = update)
+
+@yb.add_handler(button='/work')
+def but_work(update):  
+    yb.send_message(f'Здесь скоро появится инструкция как оформить командировку',update)
+
+@yb.add_handler(button='/ticket')
+def but_ticket(update):  
+    yb.send_message(f'Здесь скоро появится инструкция как оформить пропуск',update)
+
+@yb.add_handler(button='/holiday')
+def but_holiday(update):  
+    yb.send_message(f'Здесь скоро появится инструкция как оформить отпуск',update)    
+
 @yb.add_handler(button='/ithelp')
 def but_ithelp(update):  
-    yb.send_message(f'Напишите сотруднику поддержки в ЯМессенджер или на почту: ithelp@sollers-auto.com',update)
-
+    yb.send_message(f'Напишите сотруднику поддержки в  Я. Мессенджере  или на почту: ithelp@sollers-auto.com',update)
 
 @yb.add_handler(button='/back')
 def but_back(update):  
@@ -147,15 +166,15 @@ def art_thread(art_q, menu):                                                    
 
 
 def build_menu(): # Создаем кнопки для меню с текстом и соответствующими командами
-    button_help = {'text': 'Главное меню', 'callback_data': {'cmd': '/help'}}
-    button_hello = {'text': 'Заявки на формы', 'callback_data': {'cmd': '/hello'}}
-    button_info = {'text': 'Полезная информация', 'callback_data': {'cmd': '/info'}}
+    button_help = {'text': 'Главное меню 🏠', 'callback_data': {'cmd': '/help'}}
+    button_test = {'text': 'Оформить заявку 📋', 'callback_data': {'cmd': '/test'}}
+    button_info = {'text': 'Полезная информация 📕', 'callback_data': {'cmd': '/info'}}
     button_art = {'text': 'Генерация изображения', 'callback_data': {'cmd': '/art'}}
     #button_translate = {'text': 'Перевод', 'callback_data': {'cmd': '/translate'}}
     button_pass = {'text': 'Оформление пропусков', 'callback_data': {'cmd': '/pass'}}
 
     # Возвращаем список кнопок, который будет использоваться в меню
-    return [button_help, button_hello, button_art, button_info, button_pass]
+    return [button_help, button_test, button_art, button_info, button_pass]
 
 def send_menu(update, menu):  # Отправляем пользователю инлайн-кнопки с текстом и кнопками из меню
     yb.send_inline_keyboard(text='Доступные команды:', buttons=menu, update=update)
