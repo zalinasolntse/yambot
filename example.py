@@ -57,7 +57,8 @@ def info_button(update):
 
 @yb.add_handler(button='/ithelp')
 def but_ithelp(update):  
-    yb.send_message(f'Напишите сотруднику поддержки в  Я. Мессенджере  или на почту: ithelp@sollers-auto.com',update)
+    yb.send_message(f'Напишите сотруднику поддержки в  Я. Мессенджере : https://yandex.ru/chat#/@/user/c8677c02-b3cd-9a51-5fcb-bc5dff265fb0 
+                      или на почту: ithelp@sollers-auto.com',update)
     send_menu(update, but_help)
 
 @yb.add_handler(button='/car')
@@ -197,15 +198,15 @@ def art_thread(art_q, menu):                                                    
 
 
 def build_menu(): # Создаем кнопки для меню с текстом и соответствующими командами
-    button_help = {'text': 'Главное меню 🏠', 'callback_data': {'cmd': '/help'}}
-    button_test = {'text': 'Оформить заявку 📋', 'callback_data': {'cmd': '/test'}}
-    button_info = {'text': 'Полезная информация 📕', 'callback_data': {'cmd': '/info'}}
-    button_gpt = {'text': 'Yandex GPT 👽', 'callback_data': {'cmd': '/gpt'}}
+    #button_help = {'text': 'Главное меню 🏠', 'callback_data': {'cmd': '/help'}}
+    button_test = {'text': '📋 Оформить заявку', 'callback_data': {'cmd': '/test'}}
+    button_info = {'text': '📕 Полезная информация', 'callback_data': {'cmd': '/info'}}
+    button_gpt = {'text': '👽 Yandex GPT ', 'callback_data': {'cmd': '/gpt'}}
     #button_translate = {'text': 'Перевод', 'callback_data': {'cmd': '/translate'}}
     
 
     # Возвращаем список кнопок, который будет использоваться в меню
-    return [button_help, button_test, button_info,button_gpt]
+    return [button_test, button_info,button_gpt]
 
 def send_menu(update, menu):  # Отправляем пользователю инлайн-кнопки с текстом и кнопками из меню
     yb.send_inline_keyboard(text='Доступные команды:', buttons=menu, update=update)
