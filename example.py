@@ -53,12 +53,12 @@ def info_button(update):
 @yb.add_handler(button='/ithelp')
 def but_ithelp(update):  
     yb.send_message(f'Напишите сотруднику поддержки в  Я. Мессенджере  или на почту: ithelp@sollers-auto.com',update)
-    send_menu(update, info_button)
+    send_menu(update, but_help)
 
 @yb.add_handler(button='/raspisanie')
 def but_ithelp(update):  
     yb.send_message(f'Вы можете присоединиться к нашей группе в Телеграм-канал по ссылке: https://t.me/+t7OWn8saTu0wZTdi для получения оперативной информации.',update)
-    send_menu(update, info_button)
+    send_menu(update, but_help)
 
 @yb.add_handler(button='main')
 def but_main(update):  
@@ -72,18 +72,17 @@ def test_button(update):
 @yb.add_handler(button='/work')
 def but_work(update):  
     yb.send_message(f'Здесь скоро появится инструкция как оформить командировку',update)
-    send_menu(update, test_button)
+    send_menu(update, but_zayavki)
 
 @yb.add_handler(button='/ticket')
 def but_ticket(update):  
     yb.send_message(f'Здесь скоро появится инструкция как оформить пропуск',update)
-    send_menu(update, test_button)
-
+    send_menu(update, but_zayavki)
 
 @yb.add_handler(button='/holiday')
 def but_holiday(update):  
     yb.send_message(f'Здесь скоро появится инструкция как оформить отпуск',update)   
-    send_menu(update, test_button)
+    send_menu(update, but_zayavki)
 
 #кнопка назад
 @yb.add_handler(button='/back')
