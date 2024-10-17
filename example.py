@@ -89,6 +89,7 @@ def but_holiday(update):
     yb.send_message(f'Здесь скоро появится инструкция как оформить отпуск',update)   
     send_menu(update, but_zayavki)
 
+
 @yb.add_handler(button='/pass')
 def pass_button(update):                                                                 #Обработчик кнопки пропуска. Запрашивает имя и фамилию для заказа пропуска.
     yb.send_message(f'`Введите имя и фамилию для заказа пропуска:`', update)
