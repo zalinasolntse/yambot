@@ -45,24 +45,24 @@ button_pass = {'text': 'Оформление пропусков', 'callback_data
 but_zayavki=[but_work,but_holiday,button_pass,but_main]
 
 #кнопки "YandexGPT"
-button_art = {'text': 'Генерация изображения', 'callback_data': {'cmd': '/art'}}
-button_text= {'text': 'Генерация текста', 'callback_data': {'cmd': '/text'}}
+button_art = {'text': '🏞️ Генерация изображения', 'callback_data': {'cmd': '/art'}}
+button_text= {'text': '💬 Генерация текста', 'callback_data': {'cmd': '/text'}}
 button_requests=[button_art,button_text,but_main]
 
 #ФУНКЦИЯ КНОПОК
 #полезная информация
 @yb.add_handler(button='/info')
 def info_button(update):  
-    yb.send_inline_keyboard(text='Полезная информация:', buttons = but_help, update = update)                                                          #Обработчик кнопки перевода. Запрашивает текст для перевода.
+    yb.send_inline_keyboard(text='`Полезная информация:`', buttons = but_help, update = update)                                                          #Обработчик кнопки перевода. Запрашивает текст для перевода.
 
 @yb.add_handler(button='/ithelp')
 def but_ithelp(update):  
-    yb.send_message(f'Напишите сотруднику поддержки в [**Я. Мессенджере**](https://yandex.ru/chat#/@/user/c8677c02-b3cd-9a51-5fcb-bc5dff265fb0) или на почту: ithelp@sollers-auto.com',update)
+    yb.send_message(f'Напишите сотруднику поддержки в [**Я. Мессенджере**](//yandex.ru/chat#/user/c8677c02-b3cd-9a51-5fcb-bc5dff265fb0) или на почту: ithelp@sollers-auto.com',update)
     send_menu(update, but_help)
 
 @yb.add_handler(button='/car')
 def but_car(update):  
-    yb.send_message(f'Вы можете присоединиться к нашей группе в [Телеграм-канал](https://t.me/+t7OWn8saTu0wZTdi) для получения оперативной информации.',update)
+    yb.send_message(f'Вы можете присоединиться к нашей группе в [**Телеграм-канал**](https://t.me/+t7OWn8saTu0wZTdi) для получения оперативной информации.',update)
     send_menu(update, but_help)
 
 @yb.add_handler(button='main')
@@ -72,7 +72,7 @@ def but_main(update):
 #оформить заявку
 @yb.add_handler(button='/test')
 def test_button(update):  
-    yb.send_inline_keyboard(text='Оформить заявку:', buttons = but_zayavki, update = update)
+    yb.send_inline_keyboard(text='`Оформить заявку:`', buttons = but_zayavki, update = update)
 
 @yb.add_handler(button='/work')
 def but_work(update):  
@@ -91,18 +91,18 @@ def but_holiday(update):
 
 @yb.add_handler(button='/pass')
 def pass_button(update):                                                                 #Обработчик кнопки пропуска. Запрашивает имя и фамилию для заказа пропуска.
-    yb.send_message(f'Введите имя и фамилию для заказа пропуска:', update)
+    yb.send_message(f'`Введите имя и фамилию для заказа пропуска:`', update)
     pass_requests.update({f'{update.from_m.from_id}': update})                           # Сохраняем запрос
 
 @yb.add_handler(button='/pass_yes')
 def pass_yes(update):
     res = create_ticket(update.callback_data['name'])                                    #Обработчик подтверждения заказа пропуска.
-    yb.send_message(f"Заявка на пропуск оформлена: https://tracker.yandex.ru/{res['key']}", update)
+    yb.send_message(f"`Заявка на пропуск оформлена:` https://tracker.yandex.ru/{res['key']}", update)
     send_menu(update, main_menu)                                                         # Возвращаем в основное меню
 
 @yb.add_handler(button='/pass_no')
 def pass_no(update):                                                                     #Обработчик отмены заказа пропуска.
-    yb.send_message(f'"Заказ пропуска отменен', update)
+    yb.send_message(f'"`Заказ пропуска отменен`', update)
     send_menu(update, main_menu)      
 
 
@@ -114,7 +114,7 @@ def but_back(update):
 #кнопка YandexGPT
 @yb.add_handler(button='/gpt')
 def gpt_button(update):  
-    yb.send_inline_keyboard(text='Yandex GPT ', buttons = button_requests, update = update)
+    yb.send_inline_keyboard(text='`Yandex GPT` ', buttons = button_requests, update = update)
 
 @yb.add_handler(button='/text')
 def but_text(update):  
@@ -123,7 +123,7 @@ def but_text(update):
 
 @yb.add_handler(button='/art')
 def art_button(update):                                                                  #Обработчик кнопки генерации изображения. Запрашивает текст для генерации.
-    yb.send_message(f'Введите текст для генерации изображения:', update)
+    yb.send_message(f'`Введите текст для генерации изображения:`', update)
     art_requests.update({f'{update.from_m.from_id}': update})                            # Сохраняем запрос
 
 
@@ -132,7 +132,7 @@ def art_yes(update):                                                            
     response = send_art_request(update.callback_data['text'])                            # Отправляем запрос на генерацию изображения
     print(f"Art response: {response}")
     try:
-        yb.send_message(f"Запрос на генерацию изображения отправлен.", update)
+        yb.send_message(f"`Запрос на генерацию изображения отправлен.`", update)
         art_queue.update({f"{response['id']}": update})                                  # Сохраняем запрос в очередь
     except KeyError:
         yb.send_message(f"Ошибка: {response['error']}", update)                          # Обработка ошибки
@@ -140,7 +140,7 @@ def art_yes(update):                                                            
 
 @yb.add_handler(button='/art_no') 
 def art_no(update):                                                                      # Обработчик отмены генерации изображения
-    yb.send_message(f'"Генерация изображения отменена', update)
+    yb.send_message(f'"`Генерация изображения отменена`', update)
     send_menu(update, main_menu) # Возвращаем в основное меню
 
 
@@ -153,8 +153,8 @@ def process_any(update):                                                        
         translate_requests.pop(f'{update.from_m.from_id}', None)                         # Удаляем запрос
         send_menu(update, main_menu)
     elif f'{update.from_m.from_id}' in pass_requests:                                    # Создаем кнопки для подтверждения или отмены заказа пропуска
-        button_pass_yes = {'text': 'Да', 'callback_data': {'cmd': '/pass_yes', 'name': update.text}}
-        button_pass_no = {'text': 'Нет', 'callback_data': {'cmd': '/pass_no'}}
+        button_pass_yes = {'text': '✔️Да', 'callback_data': {'cmd': '/pass_yes', 'name': update.text}}
+        button_pass_no = {'text': '❌Нет', 'callback_data': {'cmd': '/pass_no'}}
         yb.send_inline_keyboard(
             f'Заказать пропуск для: {update.text}?',
             [button_pass_yes, button_pass_no],
@@ -162,10 +162,10 @@ def process_any(update):                                                        
         )
         pass_requests.pop(f'{update.from_m.from_id}', None)                               # Удаляем запрос
     elif f'{update.from_m.from_id}' in art_requests:                                      # Создаем кнопки для подтверждения или отмены генерации изображения
-        button_art_yes = {'text': 'Да', 'callback_data': {'cmd': '/art_yes', 'text': update.text}}
-        button_art_no = {'text': 'Нет', 'callback_data': {'cmd': '/art_no'}}
+        button_art_yes = {'text': '✔️Да', 'callback_data': {'cmd': '/art_yes', 'text': update.text}}
+        button_art_no = {'text': '❌Нет', 'callback_data': {'cmd': '/art_no'}}
         yb.send_inline_keyboard(
-            f'Сгенерировать изображение по запросу: {update.text}?',
+            f'`Сгенерировать изображение по запросу: {update.text}?`',
             [button_art_yes, button_art_no],
             update
         )
@@ -181,7 +181,7 @@ def art_thread(art_q, menu):                                                    
         for art_request in art_q.keys():
             response = get_art_response(art_request)                                      # Получаем ответ о готовности изображения
             if response['done']:
-                yb.send_message("Изображение готово", art_q[art_request])                 # Уведомляем пользователя
+                yb.send_message("`Изображение готово`", art_q[art_request])                 # Уведомляем пользователя
                 yb.send_image(response['response']['image'], art_q[art_request])          # Отправляем изображение
                 send_menu(art_q[art_request], menu)                                       # Возвращаем в меню
                 art_q.pop(art_request, None)                                              # Удаляем обработанный запрос
@@ -191,7 +191,7 @@ def art_thread(art_q, menu):                                                    
             else:
                 print(art_q)                                                              # Выводим содержимое очереди art_q в консоль для отладки
                                                                                           # Отправляем сообщение пользователю о том, что идет процесс генерации
-                yb.send_message("Генерируется...", art_q[art_request])
+                yb.send_message("`Генерируется...`", art_q[art_request])
         # print("Sleeping")
         sleep(10)                                                                         # Приостанавливаем выполнение на 10 секунд
 
@@ -208,7 +208,7 @@ def build_menu(): # Создаем кнопки для меню с тексто�
     return [button_test, button_info,button_gpt]
 
 def send_menu(update, menu):  # Отправляем пользователю инлайн-кнопки с текстом и кнопками из меню
-    yb.send_inline_keyboard(text='Доступные команды:', buttons=menu, update=update)
+    yb.send_inline_keyboard(text='`Доступные команды:`', buttons=menu, update=update)
 
 if __name__ == "__main__":  # Проверяем, что этот файл исполняется как основной скрипт
     main_menu = build_menu() # Создаем главное меню, вызывая функцию build_menu()
