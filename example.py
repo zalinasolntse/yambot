@@ -31,19 +31,23 @@ def show_handlers(update):                                                      
     #translate_requests.update({f'{update.from_m.from_id}': update})                      # Сохраняем запрос
 
 #КНОПКИ
-#Кнопки "полезная информация"
+#Кнопки "Полезная информация"
 but_ithelp = {'text': 'IT Help', 'callback_data': {'cmd': '/ithelp'}}
 but_car= {'text': 'Расписание транспорта', 'callback_data': {'cmd': '/car'}}
-but_main={'text': 'На главную', 'callback_data': {'cmd': '/main'}}
+but_main={'text': 'Назад', 'callback_data': {'cmd': '/main'}}
 but_help = [but_ithelp, but_car,but_main]
 
-#Кнопки "оформить пропуск"
+#Кнопки "Оформить пропуск"
 but_work= {'text': 'Командировка', 'callback_data': {'cmd': '/work'}}
 but_ticket ={'text': 'Пропуск', 'callback_data': {'cmd': '/ticket'}}
 but_holiday={'text': 'Отпуск', 'callback_data': {'cmd': '/holiday'}}
 button_pass = {'text': 'Оформление пропусков', 'callback_data': {'cmd': '/pass'}}
 but_zayavki=[but_work,but_ticket,but_holiday,button_pass,but_main]
 
+#кнопки "YandexGPT"
+button_art = {'text': 'Генерация изображения', 'callback_data': {'cmd': '/art'}}
+button_text= {'text': 'Генерация текста', 'callback_data': {'cmd': '/text'}}
+button_requests=[button_art,button_text,but_main]
 
 #ФУНКЦИЯ КНОПОК
 #полезная информация
@@ -56,8 +60,8 @@ def but_ithelp(update):
     yb.send_message(f'Напишите сотруднику поддержки в  Я. Мессенджере  или на почту: ithelp@sollers-auto.com',update)
     send_menu(update, but_help)
 
-@yb.add_handler(button='/raspisanie')
-def but_ithelp(update):  
+@yb.add_handler(button='/car')
+def but_car(update):  
     yb.send_message(f'Вы можете присоединиться к нашей группе в Телеграм-канал по ссылке: https://t.me/+t7OWn8saTu0wZTdi для получения оперативной информации.',update)
     send_menu(update, but_help)
 
@@ -107,6 +111,15 @@ def pass_no(update):                                                            
 def but_back(update):  
     send_menu(update, main_menu)
 
+#кнопка YandexGPT
+@yb.add_handler(button='/gpt')
+def gpt_button(update):  
+    yb.send_inline_keyboard(text='Yandex GPT ', buttons = button_requests, update = update)
+
+@yb.add_handler(button='/text')
+def but_text(update):  
+    yb.send_message(f'Здесь скоро появится инструкция как cгенерировать текст',update)   
+    send_menu(update, button_requests)
 
 @yb.add_handler(button='/art')
 def art_button(update):                                                                  #Обработчик кнопки генерации изображения. Запрашивает текст для генерации.
@@ -187,12 +200,12 @@ def build_menu(): # Создаем кнопки для меню с тексто�
     button_help = {'text': 'Главное меню 🏠', 'callback_data': {'cmd': '/help'}}
     button_test = {'text': 'Оформить заявку 📋', 'callback_data': {'cmd': '/test'}}
     button_info = {'text': 'Полезная информация 📕', 'callback_data': {'cmd': '/info'}}
-    button_art = {'text': 'Генерация изображения', 'callback_data': {'cmd': '/art'}}
+    button_gpt = {'text': 'Yandex GPT 👽', 'callback_data': {'cmd': '/gpt'}}
     #button_translate = {'text': 'Перевод', 'callback_data': {'cmd': '/translate'}}
     
 
     # Возвращаем список кнопок, который будет использоваться в меню
-    return [button_help, button_test, button_art, button_info]
+    return [button_help, button_test, button_info]
 
 def send_menu(update, menu):  # Отправляем пользователю инлайн-кнопки с текстом и кнопками из меню
     yb.send_inline_keyboard(text='Доступные команды:', buttons=menu, update=update)
